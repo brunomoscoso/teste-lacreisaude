@@ -2,9 +2,9 @@ name: Cypress Tests
 
 on:
   push:
-    branches: [main,cypress-ci]
+    branches: [main, mocha]
   pull_request:
-    branches: [main, cypress-ci]
+    branches: [main, mocha]
 
 jobs:
   cypress-run:
@@ -22,5 +22,14 @@ jobs:
       - name: Instalar dependências
         run: npm install
 
-      - name: Rodar testes Cypress
-        run: npx cypress run
+      - name: Rodar testes Cypress com Mochawesome
+        run: npm run test
+
+      - name: Gerar HTML do relatório
+        run: npm run generate:report
+
+      - name: Enviar relatórios como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: mochawesome-html-report
+          path: cypress/reports/html
