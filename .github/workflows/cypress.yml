@@ -25,8 +25,11 @@ jobs:
       - name: Rodar testes Cypress com Mochawesome
         run: npm run test
 
+      - name: Gerar HTML do relatório
+        run: npm run generate:report
+
       - name: Enviar relatórios como artefato
         uses: actions/upload-artifact@v4
         with:
-          name: mochawesome-report
-          path: cypress/reports
+          name: mochawesome-html-report
+          path: cypress/reports/html
